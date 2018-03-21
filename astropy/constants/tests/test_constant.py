@@ -6,6 +6,9 @@ import copy
 
 import pytest
 
+import numpy as np
+from numpy.testing.utils import assert_allclose
+
 from .. import Constant
 from ...units import Quantity as Q
 
@@ -159,3 +162,8 @@ def test_view():
 
     c4 = Q(c, subok=True, copy=False)
     assert c4 is c
+
+
+def test_pc():
+    from .. import au, pc
+    assert_allclose(pc.value, (648000. / np.pi) * au.value, rtol=1e-16)

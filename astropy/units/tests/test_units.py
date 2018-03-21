@@ -118,7 +118,7 @@ def test_units_conversion():
     assert_allclose(u.kpc.to(u.Mpc), 0.001)
     assert_allclose(u.Mpc.to(u.kpc), 1000)
     assert_allclose(u.yr.to(u.Myr), 1.e-6)
-    assert_allclose(u.AU.to(u.pc), 4.84813681e-6)
+    assert_allclose(u.AU.to(u.pc), 4.84813681109536e-6, rtol=1e-16)
     assert_allclose(u.cycle.to(u.rad), 6.283185307179586)
 
 
@@ -804,3 +804,13 @@ def test_unit_summary_prefixes():
             assert prefixes == 'No'
         elif unit.name == 'vox':
             assert prefixes == 'Yes'
+
+
+def test_parsec_against_erfa():
+    from ... import _erfa as erfa
+
+    pc = 1 * u.pc
+
+    pv = erfa.starpv(ra=0.0, dec=0.0, pmr=0.0, pmd=0.0, px=1.0, rv=0.0)
+
+    assert_allclose(pc.to_value(u.au), pv[0][0], rtol=1e-16)

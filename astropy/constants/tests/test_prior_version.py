@@ -4,6 +4,9 @@ import copy
 
 import pytest
 
+import numpy as np
+from numpy.testing.utils import assert_allclose
+
 from .. import Constant
 from ...units import Quantity as Q
 
@@ -93,6 +96,13 @@ def test_b_wien():
     t = 5778 * u.K
     w = (b_wien / t).to(u.nm)
     assert round(w.value) == 502
+
+
+def test_pc():
+    from ..astropyconst13 import pc, au
+
+    assert_allclose(pc.value, au.value / np.tan(np.radians(1. / 3600.)),
+                    rtol=1e-16)
 
 
 def test_unit():

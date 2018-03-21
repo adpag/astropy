@@ -26,15 +26,13 @@ au = IAU2015('au', "Astronomical Unit", 1.49597870700e11, 'm', 0.0,
 
 # Parsec
 
-pc = IAU2015('pc', "Parsec", au.value / np.tan(np.radians(1. / 3600.)), 'm',
-              au.uncertainty / np.tan(np.radians(1. / 3600.)),
-              "Derived from au", system='si')
+pc = IAU2015('pc', "Parsec", au.value * (648000. / np.pi), 'm',
+              au.uncertainty * (648000. / np.pi),
+              "IAU 2015 Resolution B2 Note 4", system='si')
 
 # Kiloparsec
-kpc = IAU2015('kpc', "Kiloparsec",
-               1000. * au.value / np.tan(np.radians(1. / 3600.)), 'm',
-               1000. * au.uncertainty / np.tan(np.radians(1. / 3600.)),
-               "Derived from au", system='si')
+kpc = IAU2015('kpc', "Kiloparsec", 1000. * pc.value, 'm',
+               1000. * pc.uncertainty, pc.reference, pc.system)
 
 # Luminosity
 L_bol0 = IAU2015('L_bol0', "Luminosity for absolute bolometric magnitude 0",

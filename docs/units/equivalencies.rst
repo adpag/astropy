@@ -48,7 +48,7 @@ into units of length (and vice versa).
     >>> (8.0 * u.arcsec).to(u.parsec, equivalencies=u.parallax())
     <Quantity 0.125 pc>
     >>> u.AU.to(u.arcminute, equivalencies=u.parallax())
-    3437.7467707580054
+    3437.746770784939
 
 Angles as Dimensionless Units
 -----------------------------
